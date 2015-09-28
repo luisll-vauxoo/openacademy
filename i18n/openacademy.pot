@@ -30,12 +30,12 @@ msgstr ""
 #. module: openacademy
 #: field:openacademy.session,active:0
 msgid "Active"
-msgstr ""
+msgstr "Activo"
 
 #. module: openacademy
 #: view:openacademy.wizard:openacademy.wizard_form_view
 msgid "Add Attendees"
-msgstr ""
+msgstr "Agregar Asistentes"
 
 #. module: openacademy
 #: model:ir.ui.menu,name:openacademy.menu_launch_session_wizard
@@ -130,12 +130,12 @@ msgstr ""
 #: view:openacademy.course:openacademy.course_form_view
 #: field:openacademy.course,description:0
 msgid "Description"
-msgstr ""
+msgstr "Descripción"
 
 #. module: openacademy
 #: selection:openacademy.session,state:0
 msgid "Done"
-msgstr ""
+msgstr "Terminado"
 
 #. module: openacademy
 #: selection:openacademy.session,state:0
