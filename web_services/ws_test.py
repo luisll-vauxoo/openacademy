@@ -24,16 +24,29 @@ for session in sessions:
     print "Session %s (%s seats), taken seats %d" % (session['name'], session['seats'], session['taken_seats'])
     
 # 3.create a new session
-method_name = 'search'
-domain = [('name', '=', 'Curso Odoo 1')]
-course_ids = call('openacademy.course', method_name, domain)
-course_id = course_ids[0]
-print "course_ids",course_id
+# Generate SQL constraint's response
+#method_name = 'create'
+#course_id = call('openacademy.course', method_name, {'name': 'Curso Odoo 1'})
+
+# Generate Python constraint's response
+method_name = 'create'
+responsible_id = call('res.partner', 'search', [('name', '=', 'Vauxoo')])[0]
+print "responsible_id", responsible_id 
+new_session_id = call(model, method_name, {
+    'name' : 'Session for ws',
+    'course_id' : course_id,
+    'instructor_id' : responsible_id, 
+    'attendee_ids': [(4, responsible_id)],
+    })
+print "new_session_id",new_session_id
+
 
 method_name = 'create'
 new_session_id = call(model, method_name, {
     'name' : 'Session for ws',
     'course_id' : course_id,
+    #'attendee_ids': [(4, responsible_id)],
+    'attendee_ids': [(4, 7), (4, 3)],
     })
 print "new_session_id",new_session_id
 
