@@ -22,6 +22,7 @@
                             <ul>
                                 <t t-foreach="doc.attendee_ids" t-as="attendee">
                                     <li><span t-field="attendee.name"/></li>
+                                    <li><span t-field="attendee.email"/></li>
                                 </t>
                             </ul>
                         </div>
