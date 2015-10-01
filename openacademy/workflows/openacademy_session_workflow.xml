@@ -13,52 +13,28 @@
             <field name="name">Set session to Draft</field>
             <field name="model_id" ref="model_openacademy_session"/>
             <field name="code">
-                <!--model.search([('id', 'in', context['active_ids'])]).action_draft()-->
-                recs = self.browse(cr, uid, context['active_ids'], context=context)
-                recs.action_draft()
+recs = self.browse(cr, uid, context['active_ids'], context=context)
+recs.action_draft()
             </field>
         </record>
         <record model="ir.actions.server" id="set_session_to_confirmed">
             <field name="name">Set session to Confirmed</field>
             <field name="model_id" ref="model_openacademy_session"/>
             <field name="code">
-                <!--model.search([('id', 'in', context['active_ids'])]).action_confirm()-->
-                recs = self.browse(cr, uid, context['active_ids'], context=context)
-                recs.action_confirm()
+recs = self.browse(cr, uid, context['active_ids'], context=context)
+recs.action_confirm()
             </field>
         </record>
         <record model="ir.actions.server" id="set_session_to_done">
             <field name="name">Set session to Done</field>
             <field name="model_id" ref="model_openacademy_session"/>
             <field name="code">
-                <!--model.search([('id', 'in', context['active_ids'])]).action_done()-->
-                recs = self.browse(cr, uid, context['active_ids'], context=context)
-                recs.action_done()
+recs = self.browse(cr, uid, context['active_ids'], context=context)
+recs.action_done()
             </field>
         </record>
 
         <!--Workflow activities-->
-        <record model="workflow.activity" id="activity_draft">
-            <field name="name">Draft</field>
-            <field name="wkf_id" ref="wkf_session"/>
-            <field name="flow_start" eval="True"/>
-            <field name="kind">function</field>
-            <field name="action">action_draft()</field>
-        </record>
-        <record model="workflow.activity" id="activity_confirmed">
-            <field name="name">Confirmed</field>
-            <field name="wkf_id" ref="wkf_session"/>
-            <field name="kind">function</field>
-            <field name="action">action_confirm()</field>
-        </record>
-        <record model="workflow.activity" id="activity_done">
-            <field name="name">Done</field>
-            <field name="wkf_id" ref="wkf_session"/>
-            <field name="kind">function</field>
-            <field name="action">action_done()</field>
-        </record>
-
-        <!--Transitions-->
         <record model="workflow.activity" id="activity_draft">
             <field name="name">Draft</field>
             <field name="wkf_id" ref="wkf_session"/>
@@ -80,6 +56,28 @@
             <field name="kind">dummy</field>
             <field name="action"></field>   <!--Empty, because it has a data before -->
             <field name="action_id" ref="set_session_to_done"/>
+        </record>
+
+        <!--Transitions-->
+        <record model="workflow.transition" id="session_draft_to_confirmed">
+            <field name="act_from" ref="activity_draft"/>
+            <field name="act_to" ref="activity_confirmed"/>
+            <field name="signal">button_confirm</field>
+        </record>
+        <record model="workflow.transition" id="session_confirmed_to_draft">
+            <field name="act_from" ref="activity_confirmed"/>
+            <field name="act_to" ref="activity_draft"/>
+            <field name="signal">button_draft</field>
+        </record>
+        <record model="workflow.transition" id="session_done_to_draft">
+            <field name="act_from" ref="activity_done"/>
+            <field name="act_to" ref="activity_draft"/>
+            <field name="signal">button_draft</field>
+        </record>
+        <record model="workflow.transition" id="session_confirmed_to_done">
+            <field name="act_from" ref="activity_confirmed"/>
+            <field name="act_to" ref="activity_done"/>
+            <field name="signal">button_done</field>
         </record>
 
         <!--Transition of condition-->

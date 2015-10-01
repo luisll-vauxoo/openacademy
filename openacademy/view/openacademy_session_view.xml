@@ -24,7 +24,7 @@
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
-                        <group>
+                        <!--<group>-->
                             <group string="General">
                                 <field name="course_id"/>
                                 <field name="name"/>
@@ -39,16 +39,16 @@
                                 <field name="hours"/>
                                 <field name="seats"/>
                             </group>
-                        </group>
+                            <!--</group>-->
                         <label for="attendee_ids"/>
                         <field name="attendee_ids"/>
                     </sheet>
-                    <footer>
+                    <!--<footer>
                         <button name="subscribe" type="object"
                             string="Subscribe" class="oe_highlight"/>
                         or
                         <button special="cancel" string="Cancel"/>
-                    </footer>
+                    </footer>-->
                 </form>
             </field>
         </record>
