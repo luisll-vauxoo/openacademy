@@ -1,41 +1,40 @@
 language: python
 sudo: false
+cache: pip
 
 python:
     - "2.7"
 
+addons:
+    apt:
+        # only add the two lines below if you need wkhtmltopdf for your tests
+        #    sources:
+        #      - pov-wkhtmltopdf
+        packages:
+        - expect-dev  # provides unbuffer utility
+        - python-lxml  # because pip installation is slow
+        - python-simplejson
+        - python-serial
+        - python-yaml
+        #      - wkhtmltopdf  # only add if needed and check the before_install section below
+       
+env:
+    global:
+        - VERSION="8.0" TESTS="0" LINT_CHECK="0"
+
+matrix:
+    - LINT_CHECK="1"
+    - TESTS="1" ODOO_REPO="odoo/odoo"
+
 virtualenv:
     system_site_packages: true
 
-env:
-    #    global:
-    #        - VERSION="8.0" TESTS=0 LINT_CHECK=0
-
-    #    matrix:
-    #        - LINT_CHECK=1
-    #        - TESTS=1 ODOO_REPO="luisll-vauxoo/openacademy"
-    - VERSION="8.0" ODOO_REPO="luisll-vauxoo/openacademy" LINT_CHECK=1 TESTS=0 ODOO_LINT=0
-    - VERSION="8.0" ODOO_REPO="luisll-vauxoo/openacademy" LINT_CHECK=0 TESTS=0 ODOO_LINT=1
-
-addons:
-    apt:
-        packages:
-            - expect-dev  # provides unbuffer utility
-            - python-lxml  # because pip installation is slow
-            - python-simplejson
-            - python-serial
-            - python-yaml
-              #       - wkhtmltopdf   # only add if needed and check the before_install section below
-
 install:
-    - git clone --single-branch --depth=1 https://github.com/Vauxoo/maintainer-quality-tools.git -b master ${HOME}/maintainer-quality-tools
+    - git clone --depth=1 https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
     - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
-    - travis_install_nigthly
+    - travis_install_nightly
 
 script:
-     #- PYTHONPATH=${PATH} python -c "import getaddons;print 'export INCLUDE_LINT=\"' + ' '.join(getaddons.get_modules_changed('${TRAVIS_BUILD_DIR}', 'origin/${TRAVIS_BRANCH}')) + '\"'" >${TRAVIS_BUILD_DIR}/modules_changed.profile
-     #- source ${TRAVIS_BUILD_DIR}/modules_changed.profile
-     #- if [ "x${INCLUDE_LINT}" == "x" ]; then exit 0; fi
     - travis_run_tests
 
 after_success:
