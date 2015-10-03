@@ -24,7 +24,7 @@ addons:
             - python-lxml  # because pip installation is slow
             - python-simplejson
             - python-serial
-              #- python-yaml
+            - python-yaml
               #       - wkhtmltopdf   # only add if needed and check the before_install section below
 
 install:
