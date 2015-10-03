@@ -8,12 +8,14 @@ virtualenv:
     system_site_packages: true
 
 env:
-    global:
-        - VERSION="8.0" TESTS=0 LINT_CHECK=0
+    #    global:
+    #        - VERSION="8.0" TESTS=0 LINT_CHECK=0
 
-    matrix:
-        - LINT_CHECK=1
-        - TESTS=1 ODOO_REPO="luisll-vauxoo/openacademy"
+    #    matrix:
+    #        - LINT_CHECK=1
+    #        - TESTS=1 ODOO_REPO="luisll-vauxoo/openacademy"
+    - VERSION="8.0" ODOO_REPO="vauxoo/odoo" LINT_CHECK=1 TESTS=0 ODOO_LINT=0
+    - VERSION="8.0" ODOO_REPO="vauxoo/odoo" LINT_CHECK=0 TESTS=0 ODOO_LINT=1
 
 addons:
     apt:
